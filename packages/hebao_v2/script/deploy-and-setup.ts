@@ -92,7 +92,7 @@ async function newWalletFactory(owner: string) {
 
     const RecoverLib = await (await ethers.getContractFactory("RecoverLib", {
         libraries: {
-            GuardianLib: "0x93363a9215fc02520ccec95dab1a7587449c7451"
+            GuardianLib: GuardianLib.address
         }
     })).deploy({ gasLimit });
     console.log("RecoverLib:", RecoverLib.address);

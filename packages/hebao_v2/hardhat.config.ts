@@ -71,6 +71,18 @@ export default {
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: undefined,
+      // accounts: [process.env.PRIV_KEY]
+      accounts: loadTestAccounts().map(item => item.privateKey)
+    },
+
+    mainnet: {
+      chainId: 1,
+      url: "https://eth-mainnet.g.alchemy.com/v2/qXQjCt36sVRzYRoHk2Si6WhNJIvXKNoj",
+      gas: 8000000,
+      gasPrice: 11e9,
+      gasMultiplier: 1,
+      timeout: 20000,
+      httpHeaders: undefined,
       accounts: [process.env.PRIV_KEY]
       // accounts: loadTestAccounts().map(item => item.privateKey)
     },
@@ -112,7 +124,7 @@ export default {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 100000
+        runs: 999999
       }
     }
   },
