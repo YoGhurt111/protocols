@@ -5,6 +5,10 @@ import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
 import "hardhat-gas-reporter";
 import "@nomiclabs/hardhat-etherscan";
+import * as dotenv from "dotenv";
+
+
+dotenv.config();
 
 // import "@eth-optimism/plugins/hardhat/compiler";
 // import "@eth-optimism/plugins/hardhat/ethers";
@@ -67,7 +71,8 @@ export default {
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: undefined,
-      accounts: loadTestAccounts().map(item => item.privateKey)
+      accounts: [process.env.PRIV_KEY]
+      // accounts: loadTestAccounts().map(item => item.privateKey)
     },
 
     bsctestnet: {
