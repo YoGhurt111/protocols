@@ -33,7 +33,8 @@ function loadTestAccounts() {
       balance: "1" + "0".repeat(24)
     });
   }
-
+  // console.log(accounts.map(item => item.privateKey));
+  // console.log(process.env.PRIV_KEY)
   return accounts;
 }
 
@@ -67,7 +68,7 @@ export default {
       chainId: 5,
       url: "https://goerli.infura.io/v3/b7c22d73c16e4c0ea3f88dadbdffbe03",
       gas: 8000000,
-      gasPrice: 11e9,
+      gasPrice: 14e9,
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: undefined,
@@ -79,7 +80,7 @@ export default {
       chainId: 1,
       url: "https://eth-mainnet.g.alchemy.com/v2/qXQjCt36sVRzYRoHk2Si6WhNJIvXKNoj",
       gas: 8000000,
-      gasPrice: 11e9,
+      gasPrice: 15e9,
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: undefined,
@@ -136,6 +137,16 @@ export default {
 
   etherscan: {
     // Your API key for Etherscan
-    apiKey: "1F73WEV5ZM2HKPIVCG65U5QQ427NPUG9FI"
+    apiKey: "1F73WEV5ZM2HKPIVCG65U5QQ427NPUG9FI",
+    customChains: [
+      {
+        network: 'mainnet', 
+        chainId: 1,
+        urls: {
+          apiURL: 'http://api.etherscan.io/api',  // https => http
+          browserURL: 'https://etherscan.io',
+        },
+      }
+  ]
   }
 };
