@@ -57,63 +57,63 @@ async function newWallet(walletFactoryAddress: string, _salt?: number) {
 async function newWalletFactory(owner: string) {
     const ERC1271Lib = await (await ethers.getContractFactory(
         "ERC1271Lib"
-    )).deploy({gasLimit: gasLimit, nonce: 27});
+    )).deploy({gasLimit: gasLimit});
     console.log("ERC1271Lib:", ERC1271Lib.address);
 
-    const ERC20Lib = await (await ethers.getContractFactory("ERC20Lib")).deploy({gasLimit, nonce: 28});
+    const ERC20Lib = await (await ethers.getContractFactory("ERC20Lib")).deploy({gasLimit});
     console.log("ERC20Lib:", ERC20Lib.address);
 
     const GuardianLib = await (await ethers.getContractFactory(
         "GuardianLib"
-    )).deploy({gasLimit, nonce: 29});
+    )).deploy({gasLimit});
     console.log("GuardianLib:", GuardianLib.address);
 
     const InheritanceLib = await (await ethers.getContractFactory(
         "InheritanceLib"
-    )).deploy({gasLimit, nonce: 30});
+    )).deploy({gasLimit});
     console.log("InheritanceLib:", InheritanceLib.address);
 
     const LockLib = await (await ethers.getContractFactory("LockLib", {
         libraries: {
             GuardianLib: GuardianLib.address
         }
-    })).deploy({gasLimit, nonce: 31});
+    })).deploy({gasLimit});
     console.log("LockLib:", LockLib.address);
 
     const MetaTxLib = await (await ethers.getContractFactory("MetaTxLib", {
         libraries: {
             ERC20Lib: ERC20Lib.address
         }
-    })).deploy({gasLimit, nonce: 32});
+    })).deploy({gasLimit});
     console.log("MetaTxLib:", MetaTxLib.address);
 
-    const QuotaLib = await (await ethers.getContractFactory("QuotaLib")).deploy({gasLimit, nonce: 33});
+    const QuotaLib = await (await ethers.getContractFactory("QuotaLib")).deploy({gasLimit});
     console.log("QuotaLib:", QuotaLib.address);
 
     const RecoverLib = await (await ethers.getContractFactory("RecoverLib", {
         libraries: {
             GuardianLib: GuardianLib.address
         }
-    })).deploy({ gasLimit, nonce: 34 });
+    })).deploy({gasLimit});
     console.log("RecoverLib:", RecoverLib.address);
 
     const UpgradeLib = await (await ethers.getContractFactory(
         "UpgradeLib"
-    )).deploy({gasLimit, nonce: 35});
+    )).deploy({gasLimit});
     console.log("UpgradeLib:", UpgradeLib.address);
 
     const WhitelistLib = await (await ethers.getContractFactory(
         "WhitelistLib"
-    )).deploy({gasLimit, nonce: 36});
+    )).deploy({gasLimit});
     console.log("WhitelistLib:", WhitelistLib.address);
 
     // goerli
-    // const ownerSetter = owner; 
-    // const priceOracle = "0x" + "00".repeat(20);
+    const ownerSetter = owner; 
+    const priceOracle = "0x" + "00".repeat(20);
 
     // mainnet
-    const ownerSetter = "0x86B1cDc04F51a955512115FBc21Cc4AA912Ebb63";
-    const priceOracle = "0xb124190942976431d8181fbe183e44584253da68";
+    // const ownerSetter = "0x86B1cDc04F51a955512115FBc21Cc4AA912Ebb63";
+    // const priceOracle = "0xb124190942976431d8181fbe183e44584253da68";
 
     const smartWallet = await (await ethers.getContractFactory("SmartWallet", {
         libraries: {
@@ -128,12 +128,12 @@ async function newWalletFactory(owner: string) {
             UpgradeLib: UpgradeLib.address,
             WhitelistLib: WhitelistLib.address
         }
-    })).deploy(priceOracle, ownerSetter, { gasLimit, nonce: 37 });
+    })).deploy(priceOracle, ownerSetter, {gasLimit});
     console.log("SmartWallet: ", smartWallet.address);
 
     const WalletFactory = await (await ethers.getContractFactory(
         "WalletFactory"
-    )).deploy(smartWallet.address, { gasLimit, nonce: 38});
+    )).deploy(smartWallet.address, {gasLimit});
     console.log("WalletFactory:", WalletFactory.address);
 
     return await WalletFactory.deployed();

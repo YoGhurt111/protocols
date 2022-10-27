@@ -20,7 +20,8 @@ library GuardianLib
     using ApprovalLib   for Wallet;
 
     uint public constant MAX_GUARDIANS           = 10;
-    uint public constant GUARDIAN_PENDING_PERIOD = 3 days;
+    // uint public constant GUARDIAN_PENDING_PERIOD = 3 days;
+    uint public constant GUARDIAN_PENDING_PERIOD = 15 minutes;
 
     bytes32 public constant ADD_GUARDIAN_TYPEHASH = keccak256(
         "addGuardian(address wallet,uint256 validUntil,address guardian)"

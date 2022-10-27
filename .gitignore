@@ -9,3 +9,5 @@ deployedAddresses.json
 yarn.lock
 .idea/
 dist/
+
+packages/loopring_v3/\.env

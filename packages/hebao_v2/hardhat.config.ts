@@ -72,8 +72,8 @@ export default {
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: undefined,
-      // accounts: [process.env.PRIV_KEY]
-      accounts: loadTestAccounts().map(item => item.privateKey)
+      accounts: [process.env.PRIV_KEY]
+      // accounts: loadTestAccounts().map(item => item.privateKey)
     },
 
     mainnet: {
@@ -145,6 +145,14 @@ export default {
         urls: {
           apiURL: 'http://api.etherscan.io/api',  // https => http
           browserURL: 'https://etherscan.io',
+        },
+      },
+      {
+        network: 'goerli', 
+        chainId: 5,
+        urls: {
+          apiURL: 'http://api-goerli.etherscan.io/api',  // https => http
+          browserURL: 'https://goerli.etherscan.io',
         },
       }
   ]
