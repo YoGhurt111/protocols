@@ -8,6 +8,7 @@ import "../../lib/ERC20.sol";
 import "../../lib/MathUint.sol";
 import "../../lib/AddressUtil.sol";
 import "../../iface/PriceOracle.sol";
+import "../../thirdparty/BytesUtil.sol";
 import "./WhitelistLib.sol";
 import "./QuotaLib.sol";
 import "./ApprovalLib.sol";
@@ -19,6 +20,7 @@ import "./ApprovalLib.sol";
 library ERC20Lib
 {
     using AddressUtil   for address;
+    using BytesUtil     for bytes;
     using MathUint      for uint;
     using WhitelistLib  for Wallet;
     using QuotaLib      for Wallet;
@@ -301,25 +303,20 @@ library ERC20Lib
         returns (bytes memory returnData)
     {
         require(to != address(this), "SELF_CALL_DISALLOWED");
-        
 
-        // if (priceOracle != PriceOracle(0)) {
-            bytes4 methodId;
-            assembly {
-                methodId := calldataload(txData.offset)
+        if (priceOracle != PriceOracle(0)) {
+            if (txData.length >= 4) {
+                bytes4 methodId = txData.toBytes4(0);
+                // bytes4(keccak256("transfer(address,uint256)")) = 0xa9059cbb
+                // bytes4(keccak256("approve(address,uint256)")) = 0x095ea7b3
+                if (methodId == bytes4(0xa9059cbb) ||
+                        methodId == bytes4(0x095ea7b3)) {
+                    // Disallow general calls to token contracts (for tokens that have price data
+                    // so the quota is actually used).
+                    require(priceOracle.tokenValue(to, 1e18) == 0, "CALL_DISALLOWED");
+                }
             }
-            // bytes4(keccak256("transfer(address,uint256)")) = 0xa9059cbb
-            // bytes4(keccak256("transferFrom(address,address,uint256)")) = 0x23b872dd
-            // bytes4(keccak256("approve(address,uint256)")) = 0x095ea7b3
-            if (methodId == bytes4(0xa9059cbb) ||
-                    methodId == bytes4(0x23b872dd) ||
-                    methodId == bytes4(0x095ea7b3)) {
-                // Disallow general calls to token contracts (for tokens that have price data
-                // so the quota is actually used).
-                // require(priceOracle.tokenValue(to, 1e18) == 0, "CALL_DISALLOWED");
-                revert("CALL_DISALLOWED");
-            }
-        // }
+        }
 
         bool success;
         (success, returnData) = to.call{value: value}(txData);

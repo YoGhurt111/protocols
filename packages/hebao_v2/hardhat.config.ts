@@ -66,7 +66,8 @@ export default {
 
     goerli: {
       chainId: 5,
-      url: "https://goerli.infura.io/v3/b7c22d73c16e4c0ea3f88dadbdffbe03",
+      // url: "https://goerli.infura.io/v3/b7c22d73c16e4c0ea3f88dadbdffbe03",
+      url: "https://eth-goerli.g.alchemy.com/v2/1581DqMoecvtniMx3wC3QRX7vcTX9tdq",
       gas: 8000000,
       gasPrice: 14e9,
       gasMultiplier: 1,
@@ -75,6 +76,21 @@ export default {
       accounts: [process.env.PRIV_KEY]
       // accounts: loadTestAccounts().map(item => item.privateKey)
     },
+
+    taiko: {
+      chainId: 167001,
+      // url: "https://eth-goerli.g.alchemy.com/v2/1581DqMoecvtniMx3wC3QRX7vcTX9tdq",
+      url: "https://l2rpc.internal.taiko.xyz",
+      gas: 6000000,
+      gasPrice: 14e9,
+      gasMultiplier: 1,
+      timeout: 20000,
+      httpHeaders: undefined,
+      loggingEnabled: true,
+      accounts: [process.env.PRIV_KEY]
+      // accounts: loadTestAccounts().map(item => item.privateKey)
+    },
+
 
     mainnet: {
       chainId: 1,
@@ -140,7 +156,7 @@ export default {
     apiKey: "1F73WEV5ZM2HKPIVCG65U5QQ427NPUG9FI",
     customChains: [
       {
-        network: 'mainnet', 
+        network: 'mainnet',
         chainId: 1,
         urls: {
           apiURL: 'http://api.etherscan.io/api',  // https => http
@@ -148,13 +164,21 @@ export default {
         },
       },
       {
-        network: 'goerli', 
+        network: 'goerli',
         chainId: 5,
         urls: {
           apiURL: 'http://api-goerli.etherscan.io/api',  // https => http
           browserURL: 'https://goerli.etherscan.io',
         },
+      },
+      {
+        network: 'taiko',
+        chainId: 167001,
+        urls: {
+          apiURL: 'https://l2rpc.internal.taiko.xyz',  // https => http
+          browserURL: 'https://l2explorer.internal.taiko.xyz',
+        },
       }
-  ]
+    ]
   }
 };

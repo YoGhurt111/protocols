@@ -23,6 +23,7 @@ library GuardianLib
     // uint public constant GUARDIAN_PENDING_PERIOD = 3 days;
     uint public constant GUARDIAN_PENDING_PERIOD = 15 minutes;
 
+
     bytes32 public constant ADD_GUARDIAN_TYPEHASH = keccak256(
         "addGuardian(address wallet,uint256 validUntil,address guardian)"
     );
@@ -413,7 +414,7 @@ library GuardianLib
         require(_numGuardians < MAX_GUARDIANS, "TOO_MANY_GUARDIANS");
         require(guardian != wallet.owner, "GUARDIAN_CAN_NOT_BE_OWNER");
 
-        uint validSince = block.timestamp;
+        uint validSince = block.timestamp + 1;
         if (_numGuardians >= 2) {
             validSince = block.timestamp + pendingPeriod;
         }

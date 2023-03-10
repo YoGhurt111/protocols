@@ -16,8 +16,8 @@ library WhitelistLib
     using WhitelistLib      for Wallet;
     using ApprovalLib       for Wallet;
 
-    // uint public constant WHITELIST_PENDING_PERIOD = 1 days;
     uint public constant WHITELIST_PENDING_PERIOD = 15 minutes;
+    // uint public constant WHITELIST_PENDING_PERIOD = 1 days;
 
     bytes32 public constant ADD_TO_WHITELIST_TYPEHASH = keccak256(
         "addToWhitelist(address wallet,uint256 validUntil,address addr)"
