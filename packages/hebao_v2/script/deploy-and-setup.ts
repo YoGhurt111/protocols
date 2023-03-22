@@ -162,6 +162,8 @@ async function newWalletFactory(owner: string) {
         "WalletFactory"
     )).deploy(forwardProxy.address, { gasLimit });
     console.log("const WalletFactory = \"", WalletFactory.address, "\";");
+    console.log("masterCopy:", smartWallet.address);
+
 
     // return "0xC67107500077787edA336EE4A4C3146fd10B27fc";
     return await WalletFactory.deployed();
@@ -169,20 +171,20 @@ async function newWalletFactory(owner: string) {
 
 async function verifyWalletFactory() {
     const ownerAddr = "0xd54f3bDe60B73614905BA3881954d9FeB2476360";
-    const ERC1271Lib = "0x6444916aC4078fCe9d98Fa2F3e917080BF0C9163";
-    const ERC20Lib = "0x355E9941C5e301033ecfD37184E78443c5241035";
-    const GuardianLib = "0x5db136b5a3b2901f4d65bdc4547c5E45e4fb3587";
-    const InheritanceLib = "0x6feFe989b1070C5539E20D0E58eEFC7BFBFe7F65";
-    const LockLib = "0x7F3eC87F44edDF068e57D67957e0bd75AfCd76ab";
-    const MetaTxLib = "0xCee43C09c1df4772892692006A019aEB81a570f8";
-    const QuotaLib = "0x927f8102E564C7d7dc517bC520A089c65C93B4D7";
-    const RecoverLib = "0x266C987AC1bf268079EA297fb62654065C3C5Fdb";
-    const UpgradeLib = "0x60141426e29CEfcD519C839126169842952f6633";
-    const WhitelistLib = "0x77dd04BdbeED97A90d9Ab44DdFFcFA90706ad892";
-    const SmartWallet = "0xf58C4099B55A62246E82B57Cc9A495a108A7799b";
-    const DelayedImplementationManager = "0xE54b89a17E14d57b821AEe07F590d514bd78233B";
-    const ForwardProxy = "0xC7Ff834084fEC15DDdD744AeA98364f03AE728BD";
-    const WalletFactory = "0x26eAC1CaEAd0E8339Bab5af17b2f14e2451786eD";
+    const ERC1271Lib = "0x847bB6809Ab8762f915c0Fb2f54cfc87693514bE";
+    const ERC20Lib = "0x419cEE7e96918C40387C350999eB79acd4a33814";
+    const GuardianLib = "0xF0058F9C31C9A2B0A3Ca08175bE2C05746F8F85F";
+    const InheritanceLib = "0x022E5E2264620fF64C169B3B4a0b6B834AE3a3BA";
+    const LockLib = "0xa060931b7d91C991224C2D91827ABC4DE057324F";
+    const MetaTxLib = "0xBcc5a4E874ee90B91D5BF43363307C26b08e3ff7";
+    const QuotaLib = "0x720961DaB819354Fbd04E9Edc8Fe33843560D9e0";
+    const RecoverLib = "0x41F9a54faD387f5B1B8142bb544044b82A174429";
+    const UpgradeLib = "0x69B198eDE31636Cbf8839C08625855EDad7AcEB9";
+    const WhitelistLib = "0x6eCf01Df2f7cf177b7fBd552Dc1B5489e60FFA01";
+    const SmartWallet = "0xEE41641603D5a1D6CF0947d2cF69e691Ba4Acc49";
+    const DelayedImplementationManager = "0x8a05A8D328bE51826a9f955b58a9B3B6E7Ee9639";
+    const ForwardProxy = "0x65B024f6C32AD06B346c66D67170Dd895D34e5AF";
+    const WalletFactory = "0xF5Fa304dc2eE83162f41dFdFaEC56933F1dE3C49";
 
     // goerli
     const ownerSetter = ownerAddr;
@@ -294,7 +296,7 @@ async function addManager(contractAddr: string, manager: string) {
     const managableContract = await (await ethers.getContractFactory(
         "OwnerManagable"
     )).attach(contractAddr);
-    // await managableContract.addManager(manager);
+    await managableContract.addManager(manager);
 
     const isManager = await managableContract.isManager(manager);
     console.log("isManager:", isManager);
@@ -331,6 +333,7 @@ async function deployOfficialGuardian() {
     await proxyAsOfficialGuardian.initOwner(ownerAddr);
     const manager = "0xf6c53560e79857ce12dde54782d487b743b70717"
     await proxyAsOfficialGuardian.addManager(manager);
+    await proxyAsOfficialGuardian.addManager("0xC68B42a812569ab9458bde0af0F8C25A928E778f");
     console.log("add", manager, "as a manager");
 
     return proxy.address;
@@ -352,13 +355,10 @@ async function walletCreationTest() {
     console.log("const ownerAddr = \"", ownerAddr, "\";");
     const walletFactory = await newWalletFactory(ownerAddr);
 
-    const masterCopy = await walletFactory.walletImplementation();
-    console.log("walletFactory:", walletFactory.address);
-    console.log("masterCopy:", masterCopy);
     // await newWallet(walletFactory.address);
 
     // await getWalletImplAddr(walletFactory.address);
-    // const officialGuardianAddr = await deployOfficialGuardian();
+    const officialGuardianAddr = await deployOfficialGuardian();
     // await addManager(officialGuardianAddr, ownerAddr);
 }
 
@@ -384,11 +384,11 @@ async function main() {
     try {
         // await deployPriceOracle();
         // await walletCreationTest();
-        await verifyWalletFactory();
+        // await verifyWalletFactory();
         // await create2Test();
         // await rlpEncode();
         // await deployOfficialGuardian();
-        // await addManager("0x4086C28a504731f2b0A9d436298f0b099a40eA53", "0xf6c53560e79857ce12dde54782d487b743b70717");
+        await addManager("0x598C0662718526e2Fc6cE681b10236A61a2A4b38", "0xd15953bd7cbcb36b69d4b9961b56f59cc2553d2e");
     } catch (e) {
         console.log(e.message);
         throw e;

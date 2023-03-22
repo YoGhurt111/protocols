@@ -78,11 +78,10 @@ export default {
     },
 
     taiko: {
-      chainId: 167001,
-      // url: "https://eth-goerli.g.alchemy.com/v2/1581DqMoecvtniMx3wC3QRX7vcTX9tdq",
-      url: "https://l2rpc.internal.taiko.xyz",
+      chainId: 167004,
+      url: "https://l2rpc.a2.taiko.xyz",
       gas: 6000000,
-      gasPrice: 14e9,
+      gasPrice: 1e9,
       gasMultiplier: 1,
       timeout: 20000,
       httpHeaders: undefined,
@@ -173,10 +172,10 @@ export default {
       },
       {
         network: 'taiko',
-        chainId: 167001,
+        chainId: 167004,
         urls: {
-          apiURL: 'https://l2rpc.internal.taiko.xyz',  // https => http
-          browserURL: 'https://l2explorer.internal.taiko.xyz',
+          apiURL: 'https://l2explorer.a2.taiko.xyz/api',  // https => http
+          browserURL: 'https://l2explorer.a2.taiko.xyz',
         },
       }
     ]
