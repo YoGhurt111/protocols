@@ -78,8 +78,8 @@ export default {
     },
 
     taiko: {
-      chainId: 167004,
-      url: "https://l2rpc.a2.taiko.xyz",
+      chainId: 167001,
+      url: "https://rpc.internal.taiko.xyz",
       gas: 6000000,
       gasPrice: 1e9,
       gasMultiplier: 1,
@@ -88,6 +88,12 @@ export default {
       loggingEnabled: true,
       accounts: [process.env.PRIV_KEY]
       // accounts: loadTestAccounts().map(item => item.privateKey)
+    },
+
+    taiko3: {
+      chainId: 167005,
+      url: "https://rpc.test.taiko.xyz",
+      accounts: [process.env.PRIV_KEY],
     },
 
 
@@ -136,13 +142,27 @@ export default {
   },
 
   solidity: {
-    version: "0.7.6",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 999999
-      }
-    }
+    compilers: [
+      {
+        version: "0.7.6",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100000
+          }
+        }
+      },
+      // {
+      //   version: "0.8.2",
+      //   settings: {
+      //     optimizer: {
+      //       enabled: true,
+      //       runs: 100000
+      //     }
+      //   }
+      // }
+    ]
+
   },
 
   gasReporter: {
@@ -172,10 +192,18 @@ export default {
       },
       {
         network: 'taiko',
-        chainId: 167004,
+        chainId: 167001,
         urls: {
-          apiURL: 'https://l2explorer.a2.taiko.xyz/api',  // https => http
-          browserURL: 'https://l2explorer.a2.taiko.xyz',
+          apiURL: 'https://explorer.internal.taiko.xyz/api',  // https => http
+          browserURL: 'https://explorer.internal.taiko.xyz',
+        },
+      },
+      {
+        network: 'taiko3',
+        chainId: 167005,
+        urls: {
+          apiURL: 'https://explorer.test.taiko.xyz/api',  // https => http
+          browserURL: 'https://explorer.test.taiko.xyz',
         },
       }
     ]

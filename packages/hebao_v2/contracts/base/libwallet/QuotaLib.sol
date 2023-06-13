@@ -20,8 +20,7 @@ library QuotaLib
     using ApprovalLib   for Wallet;
 
     uint128 public constant MAX_QUOTA = uint128(-1);
-    uint    public constant QUOTA_PENDING_PERIOD = 15 minutes;
-    // uint    public constant QUOTA_PENDING_PERIOD = 1 days;
+    uint    public constant QUOTA_PENDING_PERIOD = 1 days;
 
     bytes32 public constant CHANGE_DAILY_QUOTE_TYPEHASH = keccak256(
         "changeDailyQuota(address wallet,uint256 validUntil,uint256 newQuota)"

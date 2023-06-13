@@ -10,7 +10,8 @@ import "./DelayedImplementationManager.sol";
  * @author Kongliang Zhong - <kongliang@loopring.org>
  */
 contract ForwardProxy is Proxy {
-    DelayedImplementationManager public immutable implManager;
+
+    DelayedImplementationManager immutable public implManager;
 
     constructor(address _implManager) {
         require(_implManager != address(0), "ZERO_ADDRESS");
@@ -20,4 +21,5 @@ contract ForwardProxy is Proxy {
     function implementation() public view override returns (address) {
         return implManager.currImpl();
     }
+
 }
