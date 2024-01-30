@@ -96,6 +96,14 @@ export default {
       accounts: [process.env.PRIV_KEY],
     },
 
+    taiko6: {
+      gas: 6000000,
+      gasPrice: 1e9,
+      chainId: 167008,
+      url: "https://rpc.katla.taiko.xyz",
+      accounts: [process.env.PRIV_KEY],
+    },
+
 
     mainnet: {
       chainId: 1,
@@ -138,6 +146,19 @@ export default {
       timeout: 20000,
       httpHeaders: undefined,
       accounts: []
+    },
+
+    arbitrum_goerli: {
+      chainId: 421613,
+      url: "https://goerli-rollup.arbitrum.io/rpc",
+      // gas: 6000000,
+      // gasPrice: 1e9,
+      gas: "auto",
+      gasPrice: "auto",
+      gasMultiplier: 1,
+      timeout: 20000,
+      httpHeaders: undefined,
+      accounts: [process.env.PRIV_KEY]
     }
   },
 
@@ -204,6 +225,22 @@ export default {
         urls: {
           apiURL: 'https://explorer.test.taiko.xyz/api',  // https => http
           browserURL: 'https://explorer.test.taiko.xyz',
+        },
+      },
+      {
+        network: 'taiko6',
+        chainId: 167008,
+        urls: {
+          apiURL: 'https://blockscoutapi.katla.taiko.xyz/api',  // https => http
+          browserURL: 'https://explorer.katla.taiko.xyz',
+        },
+      },
+      {
+        network: 'arbitrum_goerli',
+        chainId: 421613,
+        urls: {
+          apiURL: 'http://api-goerli.arbiscan.io/api',  // https => http
+          browserURL: 'https://goerli.arbiscan.io',
         },
       }
     ]

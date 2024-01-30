@@ -196,54 +196,54 @@ async function verifyWalletFactory() {
     // const ownerSetter = "0x86B1cDc04F51a955512115FBc21Cc4AA912Ebb63";
     // const priceOracle = "0xb124190942976431d8181fbe183e44584253da68";
 
-    // await hre.run("verify:verify", {
-    //     address: ERC1271Lib
-    // });
+    await hre.run("verify:verify", {
+        address: ERC1271Lib
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: ERC20Lib
-    // });
+    await hre.run("verify:verify", {
+        address: ERC20Lib
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: GuardianLib
-    // });
+    await hre.run("verify:verify", {
+        address: GuardianLib
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: InheritanceLib
-    // });
+    await hre.run("verify:verify", {
+        address: InheritanceLib
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: LockLib,
-    //     libraries: {
-    //         GuardianLib: GuardianLib
-    //     }
-    // });
+    await hre.run("verify:verify", {
+        address: LockLib,
+        libraries: {
+            GuardianLib: GuardianLib
+        }
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: MetaTxLib,
-    //     libraries: {
-    //         ERC20Lib: ERC20Lib
-    //     }
-    // });
+    await hre.run("verify:verify", {
+        address: MetaTxLib,
+        libraries: {
+            ERC20Lib: ERC20Lib
+        }
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: QuotaLib
-    // });
+    await hre.run("verify:verify", {
+        address: QuotaLib
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: RecoverLib,
-    //     libraries: {
-    //         GuardianLib: GuardianLib
-    //     }
-    // });
+    await hre.run("verify:verify", {
+        address: RecoverLib,
+        libraries: {
+            GuardianLib: GuardianLib
+        }
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: UpgradeLib
-    // });
+    await hre.run("verify:verify", {
+        address: UpgradeLib
+    });
 
-    // await hre.run("verify:verify", {
-    //     address: WhitelistLib
-    // });
+    await hre.run("verify:verify", {
+        address: WhitelistLib
+    });
 
     await hre.run("verify:verify", {
         address: SmartWallet,
@@ -398,10 +398,10 @@ async function main() {
     try {
         // await deployPriceOracle();
         // await walletCreationTest();
-        await verifyWalletFactory();
+        // await verifyWalletFactory();
         // await create2Test();
-        await rlpEncode();
-        // await deployOfficialGuardian();
+        // await rlpEncode();
+        await deployOfficialGuardian();
         // await addManager("0xEE41641603D5a1D6CF0947d2cF69e691Ba4Acc49", "0xd15953bd7cbcb36b69d4b9961b56f59cc2553d2e");
         // await test();
     } catch (e) {
